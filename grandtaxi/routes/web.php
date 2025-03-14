@@ -6,6 +6,7 @@ use App\Http\Controllers\ProfileController;
 use App\Models\Location;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\SocialiteController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -96,4 +97,11 @@ Route::middleware('auth')->group(function () {
         ->name('driver.update-availability');
 });
 
+
+
+Route::get('auth/google', [SocialiteController::class, 'redirectToGoogle'])->name('auth.google');
+Route::get('auth/google/callback', [SocialiteController::class, 'handleGoogleCallback']);
+
+Route::get('auth/facebook', [SocialiteController::class, 'redirectToFacebook'])->name('auth.facebook');
+Route::get('auth/facebook/callback', [SocialiteController::class, 'handleFacebookCallback']);
 require __DIR__.'/auth.php';
